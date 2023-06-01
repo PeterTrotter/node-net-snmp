@@ -10,7 +10,7 @@ describe('parseInt()', function() {
 		writer.writeInt(-3);
 		var reader = new ber.Reader(writer.buffer);
 		it('returns a negative integer', function() {
-			assert.equal(-3, snmp.ObjectParser.readInt(reader));
+			assert.equal(-3, snmp.ObjectParser.readInt32(reader));
 		});
 	}),
 	describe('given a positive integer', function() {
@@ -18,7 +18,7 @@ describe('parseInt()', function() {
 		writer.writeInt(3245689);
 		var reader = new ber.Reader(writer.buffer);
 		it('returns a positive integer', function() {
-			assert.equal(3245689, snmp.ObjectParser.readInt(reader));
+			assert.equal(3245689, snmp.ObjectParser.readInt32(reader));
 		});
 	});
 });
@@ -29,15 +29,23 @@ describe('parseUint()', function() {
 		writer.writeInt(3242425);
 		var reader = new ber.Reader(writer.buffer);
 		it('returns a positive integer', function() {
-			assert.equal(3242425, snmp.ObjectParser.readUint(reader));
+			assert.equal(3242425, snmp.ObjectParser.readUint32(reader));
 		});
-	}),
+	});
 	describe('given a negative integer', function() {
 		var writer = new ber.Writer();
 		writer.writeInt(-3);
 		var reader = new ber.Reader(writer.buffer);
 		it('returns a positive integer', function() {
-			assert.equal(253, snmp.ObjectParser.readUint(reader));
+			assert.equal(4294967293, snmp.ObjectParser.readUint32(reader));
+		});
+	});
+	describe('given a large integer', function() {
+		var writer = new ber.Writer();
+		writer.writeInt(4294967293);
+		var reader = new ber.Reader(writer.buffer);
+		it('returns a positive integer', function() {
+			assert.equal(4294967293, snmp.ObjectParser.readUint32(reader));
 		});
 	});
 });
