@@ -12,7 +12,8 @@
   },
   "devDependencies": {
     "eslint": "^5.16.0",
-    "getopts": "*"
+    "getopts": "*",
+    "mocha": "^10.2.0"
   },
   "contributors": [
     {
@@ -47,6 +48,7 @@
   "author": "Mark Abrahams <mark@abrahams.co.nz>",
   "license": "MIT",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint . ./**/*.js"
+    "lint": "./node_modules/.bin/eslint . ./**/*.js",
+    "test": "./node_modules/mocha/bin/mocha.js"
   }
 }
