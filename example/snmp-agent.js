@@ -31,8 +31,8 @@ if (options.s) {
 				mib.setScalarValue(providerName, change);
 			}
 		}
-	} catch (e) {
-		console.log("Could not parse persistent storage");
+	} catch (error) {
+		console.log("Could not parse persistent storage", error);
 		changes = {};
 	}
 }
@@ -190,8 +190,13 @@ var tableProvider = {
             number: 2,
             name: "ifDescr",
             type: snmp.ObjectType.OctetString,
-			maxAccess: snmp.MaxAccess['read-write'],
-			defVal: "Hello world!"
+            maxAccess: snmp.MaxAccess['read-write'],
+            constraints: {
+                sizes: [
+                    { min: 1, max: 255 },
+                ]
+            },
+            defVal: "Hello world!"
         },
         {
             number: 3,
@@ -259,7 +264,7 @@ mib.dump ({
 // var data = mib.getTableColumnCells ("ifTable", 2);
 // var data = mib.getTableRowCells ("ifTable", [1]);
 // mib.setTableSingleCell ("ifTable", 2, [2], "changed!");
-mib.setTableSingleCell ("ifTable", 3, [2], 99);
+mib.setTableSingleCell ("ifTable", 3, [2], 24);
 var data = mib.getTableSingleCell ("ifTable", 3, [2]);
 // var data = mib.getScalarValue ("sysDescr");
 
